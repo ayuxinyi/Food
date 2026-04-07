@@ -1,14 +1,12 @@
-import { authClient } from "@/lib/auth-client";
+import { useAuthSession } from "@/hooks/use-auth-session";
 import { Redirect, Stack } from "expo-router";
 
 const AuthRouteLayout = () => {
-  const { data, isPending } = authClient.useSession();
-  console.log("🚀 ~ AuthRouteLayout ~ isPending:", isPending);
-  console.log("🚀 ~ AuthRouteLayout ~ data:", data);
+  const { data: session, isLoading } = useAuthSession();
 
-  if (isPending) return null;
+  if (isLoading) return null;
 
-  if (data && data.user) return <Redirect href="/" />;
+  if (session && session?.data?.user) return <Redirect href="/" />;
 
   return <Stack screenOptions={{ headerShown: false }} />;
 };

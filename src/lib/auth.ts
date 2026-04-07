@@ -8,10 +8,9 @@ export const auth = betterAuth({
   plugins: [expo()],
   // 允许的来源，用于认证和授权
   trustedOrigins: [
-    "cashory://",
-    "cashory.exp.direct://",
-    "mybettertapp://",
-    "react-native-project://",
+    "food://", // 基础 scheme
+    "food://*", // 所有路径
+    "food://**", // 所有子路径
     ...devOrigins,
   ],
   secret: process.env.BETTER_AUTH_SECRET,
@@ -25,5 +24,12 @@ export const auth = betterAuth({
   },
   emailAndPassword: {
     enabled: true, // Enable authentication using email and password.
+  },
+  socialProviders: {
+    github: {
+      enabled: true,
+      clientId: process.env.GITHUB_CLIENT_ID!,
+      clientSecret: process.env.GITHUB_CLIENT_SECRET!,
+    },
   },
 });

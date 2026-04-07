@@ -1,2 +1,96 @@
 @import "tailwindcss";
 @import "uniwind";
+
+@theme {
+  --font-family-normal: "PlusJakartaSans_400Regular";
+  --font-family-medium: "PlusJakartaSans_500Medium";
+  --font-family-semibold: "PlusJakartaSans_600SemiBold";
+  --font-family-bold: "PlusJakartaSans_700Bold";
+}
+
+@layer theme {
+  :root {
+    @variant light {
+      --color-background: hsl(138, 47%, 97%);
+      --color-foreground: hsl(146, 52%, 15%);
+      --color-card: hsl(0, 0%, 100%);
+      --color-card-foreground: hsl(146, 52%, 15%);
+      --color-primary: hsl(147, 75%, 33%);
+      --color-primary-foreground: hsl(0, 0%, 100%);
+      --color-secondary: hsl(143, 61%, 91%);
+      --color-secondary-foreground: hsl(146, 55%, 24%);
+      --color-muted: hsl(140, 57%, 94%);
+      --color-muted-foreground: hsl(146, 26%, 40%);
+      --color-accent: hsl(142, 72%, 84%);
+      --color-destructive: hsl(8, 100%, 97%);
+      --color-destructive-foreground: hsl(6, 74%, 54%);
+      --color-border: hsl(141, 47%, 83%);
+      --color-input: hsl(141, 47%, 83%);
+      --color-ring: hsl(146, 75%, 45%);
+      --color-success: hsl(146, 80%, 40%);
+      --color-priority-low: hsl(142, 73%, 90%);
+      --color-priority-low-foreground: hsl(146, 68%, 33%);
+      --color-priority-medium: hsl(45, 100%, 90%);
+      --color-priority-medium-foreground: hsl(35, 91%, 31%);
+      --color-priority-high: hsl(10, 100%, 92%);
+      --color-priority-high-foreground: hsl(6, 71%, 48%);
+    }
+
+    @variant dark {
+      --color-background: hsl(150, 31%, 9%);
+      --color-foreground: hsl(136, 42%, 92%);
+      --color-card: hsl(149, 27%, 12%);
+      --color-card-foreground: hsl(136, 42%, 92%);
+      --color-primary: hsl(142, 70%, 54%);
+      --color-primary-foreground: hsl(150, 35%, 100%);
+      --color-secondary: hsl(149, 24%, 19%);
+      --color-secondary-foreground: hsl(138, 30%, 83%);
+      --color-muted: hsl(149, 18%, 16%);
+      --color-muted-foreground: hsl(140, 17%, 68%);
+      --color-accent: hsl(146, 35%, 20%);
+      --color-destructive: hsl(8, 55%, 16%);
+      --color-destructive-foreground: hsl(7, 85%, 76%);
+      --color-border: hsl(149, 16%, 24%);
+      --color-input: hsl(149, 16%, 24%);
+      --color-ring: hsl(145, 72%, 56%);
+      --color-success: hsl(146, 70%, 52%);
+      --color-priority-low: hsl(147, 36%, 22%);
+      --color-priority-low-foreground: hsl(137, 56%, 78%);
+      --color-priority-medium: hsl(39, 39%, 23%);
+      --color-priority-medium-foreground: hsl(45, 88%, 79%);
+      --color-priority-high: hsl(8, 35%, 24%);
+      --color-priority-high-foreground: hsl(8, 86%, 82%);
+    }
+  }
+}
+@theme inline {
+  --color-background: var(--color-background);
+  --color-foreground: var(--color-foreground);
+  --color-card: var(--color-card);
+  --color-card-foreground: var(--color-card-foreground);
+  --color-primary: var(--color-primary);
+  --color-primary-foreground: var(--color-primary-foreground);
+  --color-secondary: var(--color-secondary);
+  --color-secondary-foreground: var(--color-secondary-foreground);
+  --color-muted: var(--color-muted);
+  --color-muted-foreground: var(--color-muted-foreground);
+  --color-accent: var(--color-accent);
+  --color-accent-foreground: var(--color-accent-foreground);
+  --color-destructive: var(--color-destructive);
+  --color-destructive-foreground: var(--color-destructive-foreground);
+  --color-border: var(--color-border);
+  --color-input: var(--color-input);
+  --color-ring: var(--color-ring);
+  --color-success: var(--color-success);
+  --color-priority-low: var(--color-priority-low);
+  --color-priority-low-foreground: var(--color-priority-low-foreground);
+  --color-priority-medium: var(--color-priority-medium);
+  --color-priority-medium-foreground: var(--color-priority-medium-foreground);
+  --color-priority-high: var(--color-priority-high);
+  --color-priority-high-foreground: var(--color-priority-high-foreground);
+
+  --font-sans-normal: var(--font-family-normal);
+  --font-sans-medium: var(--font-family-medium);
+  --font-sans-semibold: var(--font-family-semibold);
+  --font-sans-bold: var(--font-family-bold);
+}

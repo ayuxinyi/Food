@@ -1,15 +1,16 @@
-import { useAuthSession } from "@/hooks/use-auth-session";
-import { Redirect } from "expo-router";
+import { useGroceryStore } from "@/stores/grocery-store";
+import { useEffect } from "react";
 import { Text, View } from "react-native";
 
 const Home = () => {
-  const { data, isLoading } = useAuthSession();
+  const { loadItems, items } = useGroceryStore();
 
-  if (isLoading) {
-    return <Text>Loading...</Text>;
-  }
+  useEffect(() => {
+    loadItems();
+  }, []);
 
-  if (!data || !data.data?.user) return <Redirect href="/(auth)/sign-in" />;
+  console.log(items);
+
   return (
     <View>
       <Text>Home</Text>

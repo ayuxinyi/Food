@@ -11,6 +11,8 @@ import {
 import { useFonts } from "expo-font";
 import { SplashScreen, Stack } from "expo-router";
 import { useEffect } from "react";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
+import { KeyboardProvider } from "react-native-keyboard-controller";
 
 export default function RootLayout() {
   const [fontsLoaded] = useFonts({
@@ -29,9 +31,13 @@ export default function RootLayout() {
 
   return (
     <ReactQueryProvider>
-      <AppThemeProvider>
-        <Stack screenOptions={{ headerShown: false }} />
-      </AppThemeProvider>
+      <GestureHandlerRootView style={{ flex: 1 }}>
+        <AppThemeProvider>
+          <KeyboardProvider>
+            <Stack screenOptions={{ headerShown: false }} />
+          </KeyboardProvider>
+        </AppThemeProvider>
+      </GestureHandlerRootView>
     </ReactQueryProvider>
   );
 }

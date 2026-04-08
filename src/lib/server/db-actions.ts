@@ -46,7 +46,7 @@ export const setGroceryItemPurchased = async (
       .returning(),
   );
   if (error) {
-    throw new Error(error.message || "更新购物项失败，请稍后重试");
+    return null;
   }
   return row[0];
 };
@@ -62,7 +62,7 @@ export const updateGroceryItem = async (id: string, quantity: number) => {
       .returning(),
   );
   if (error) {
-    throw new Error(error.message || "更新购物项失败，请稍后重试");
+    return null;
   }
   return row[0];
 };

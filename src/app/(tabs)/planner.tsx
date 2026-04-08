@@ -1,9 +1,9 @@
 import { Text, View } from "react-native";
-const Home = () => {
+const Planner = () => {
   return (
     <View>
-      <Text>Home</Text>
+      <Text>Planner</Text>
     </View>
   );
 };
-export default Home;
+export default Planner;

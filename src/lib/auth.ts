@@ -8,7 +8,6 @@ import * as schema from "./server/db/schemas";
 const devOrigins =
   process.env.EXPO_PUBLIC_NODE_ENV === "development" ? ["*"] : [];
 const isDev = process.env.EXPO_PUBLIC_NODE_ENV === "development";
-console.log("🚀 ~ auth ~ isDev:", process.env.EXPO_PUBLIC_BETTER_AUTH_BASE_URL);
 
 export const auth = betterAuth({
   database: drizzleAdapter(db, {

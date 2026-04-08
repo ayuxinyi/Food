@@ -4,7 +4,7 @@ import { queryKeys } from "@/lib/query-keys";
 import { signUpSchema } from "@/schemas";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "expo-router";
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Alert } from "react-native";
 import { output } from "zod";
 
@@ -149,6 +149,14 @@ export const useSocialSignIn = () => {
   const queryClient = useQueryClient();
   const router = useRouter();
 
+  const { data: session } = authClient.useSession(); // 监听 session
+  // 当 session 存在时，说明真正登录成功了
+  useEffect(() => {
+    if (session) {
+      router.replace("/");
+    }
+  }, [session]);
+
   const handleSocialAuth = useCallback(
     async (strategy: SocialSignInStrategy) => {
       if (loadingStrategy) return;
@@ -156,10 +164,8 @@ export const useSocialSignIn = () => {
         setLoadingStrategy(strategy);
         const { error, data } = await authClient.signIn.social({
           provider: strategy,
-          callbackURL: "food://", // 例如：myapp:// 或 exp://192.168.x.x:8081/--
+          callbackURL: "food:///",
         });
-        console.log("🚀 ~ useSocialSignIn ~ error:", error);
-        console.log("🚀 ~ useSocialSignIn ~ data:", data);
         if (error) {
           Alert.alert("登录失败", error.message || "登录失败");
         }

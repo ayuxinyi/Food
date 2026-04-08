@@ -8,6 +8,13 @@
       "when": 1775565030736,
       "tag": "0000_robust_night_thrasher",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1775610538030,
+      "tag": "0001_awesome_toad_men",
+      "breakpoints": true
     }
   ]
 }

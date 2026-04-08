@@ -145,44 +145,36 @@ export const useAuthSignOut = () => {
 export type SocialSignInStrategy = "google" | "github" | "apple";
 
 export const useSocialSignIn = () => {
-  const [loadingStrategy, setLoadingStrategy] =
-    useState<SocialSignInStrategy | null>(null);
+  const [loadingStrategy, setLoadingStrategy] = useState<string | null>(null);
   const queryClient = useQueryClient();
   const router = useRouter();
-
-  const { mutateAsync } = useMutation({
-    mutationFn: async (strategy: SocialSignInStrategy) => {
-      const result = await authClient.signIn.social({
-        provider: strategy,
-      });
-      if (result.error) {
-        throw new Error("账号登录失败，请稍后重试");
-      }
-      router.replace("/");
-    },
-    async onSuccess() {
-      await queryClient.invalidateQueries({
-        queryKey: queryKeys.auth.all,
-      });
-    },
-    onError(error) {
-      console.error(error);
-      Alert.alert("账号登录失败", "账号登录没有完成，请稍后重试。");
-    },
-    onSettled() {
-      setLoadingStrategy(null);
-    },
-  });
 
   const handleSocialAuth = useCallback(
     async (strategy: SocialSignInStrategy) => {
       if (loadingStrategy) return;
-      setLoadingStrategy(strategy);
-      await mutateAsync(strategy);
+      try {
+        setLoadingStrategy(strategy);
+        const { error, data } = await authClient.signIn.social({
+          provider: strategy,
+          callbackURL: "food://", // 例如：myapp:// 或 exp://192.168.x.x:8081/--
+        });
+        console.log("🚀 ~ useSocialSignIn ~ error:", error);
+        console.log("🚀 ~ useSocialSignIn ~ data:", data);
+        if (error) {
+          Alert.alert("登录失败", error.message || "登录失败");
+        }
+        await queryClient.invalidateQueries({
+          queryKey: queryKeys.auth.all,
+        });
+      } catch (e) {
+        console.error("Social auth error:", e);
+        Alert.alert("错误", "启动登录失败");
+      } finally {
+        setLoadingStrategy(null);
+      }
     },
-    [mutateAsync],
+    [loadingStrategy],
   );
-
   return {
     handleSocialAuth,
     loadingStrategy,

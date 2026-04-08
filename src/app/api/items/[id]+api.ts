@@ -1,4 +1,8 @@
-import { deleteGroceryItem, updateGroceryItem } from "@/lib/server/db-actions";
+import {
+  deleteGroceryItem,
+  setGroceryItemPurchased,
+  updateGroceryItem,
+} from "@/lib/server/db-actions";
 import to from "await-to-js";
 
 export const DELETE = async (_req: Request, { id }: { id: string }) => {
@@ -14,7 +18,7 @@ export const PATCH = async (req: Request, { id }: { id: string }) => {
   const [error, item] = await to(
     body.quantity
       ? updateGroceryItem(id, body.quantity)
-      : updateGroceryItem(id, body.purchased ?? true),
+      : setGroceryItemPurchased(id, body.purchased ?? true),
   );
   if (error) {
     return Response.json({ error: "未找到对应的购物项" }, { status: 404 });

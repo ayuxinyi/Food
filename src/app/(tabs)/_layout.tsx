@@ -1,6 +1,5 @@
 import { useAppTheme } from "@/hooks/use-app-theme";
 import { authClient } from "@/lib/auth-client";
-import { Redirect } from "expo-router";
 import { NativeTabs } from "expo-router/unstable-native-tabs";
 
 const TabLayout = () => {
@@ -9,9 +8,9 @@ const TabLayout = () => {
   const { isDark } = useAppTheme();
   const tabTintColor = isDark ? "hsl(142 70% 54%)" : "hsl(147 75% 33%)";
 
-  if (isPending) return null;
+  // if (isPending) return null;
 
-  if (!data || !data.user) return <Redirect href="/(auth)/sign-in" />;
+  // if (!data || !data.user) return <Redirect href="/(auth)/sign-in" />;
 
   return (
     <NativeTabs tintColor={tabTintColor}>

@@ -1,6 +1,6 @@
+import { api } from "@/lib/ky";
 import { GroceryItem } from "@/lib/server/db/schemas";
 import { CreateGroceryItemInput } from "@/schemas";
-import ky from "ky";
 import { create } from "zustand";
 
 export type GroceryCategory =
@@ -29,7 +29,7 @@ export const useGroceryStore = create<GroceryStore>((set, get) => ({
   loadItems: async () => {
     set({ isLoading: true, error: null });
     try {
-      const res = await ky("/api/items").json<{
+      const res = await api("/api/items").json<{
         items?: GroceryItem[];
         error?: string;
       }>();
@@ -45,7 +45,7 @@ export const useGroceryStore = create<GroceryStore>((set, get) => ({
   addItem: async input => {
     try {
       set({ error: null });
-      const res = await ky.post("/api/items", { json: input }).json<{
+      const res = await api.post("/api/items", { json: input }).json<{
         item?: GroceryItem;
         error?: string;
       }>();
@@ -63,7 +63,7 @@ export const useGroceryStore = create<GroceryStore>((set, get) => ({
       if (!currentItem) return;
       const nextPurchased = !currentItem.purchased;
       set({ error: null });
-      const res = await ky
+      const res = await api
         .patch(`/api/items/${id}`, { json: { purchased: nextPurchased } })
         .json<{
           item?: GroceryItem;
@@ -78,12 +78,14 @@ export const useGroceryStore = create<GroceryStore>((set, get) => ({
     }
   },
   updateQuantity: async (id, quantity) => {
+    console.log(id, quantity);
     try {
       const currentItem = get().items.find(item => item.id === id);
       if (!currentItem) return;
       set({ error: null });
       const nextQuantity = Math.max(quantity, 1);
-      const res = await ky
+      console.log("🚀 ~ nextQuantity:", nextQuantity);
+      const res = await api
         .patch(`/api/items/${id}`, { json: { quantity: nextQuantity } })
         .json<{
           item?: GroceryItem;
@@ -94,13 +96,14 @@ export const useGroceryStore = create<GroceryStore>((set, get) => ({
         items: state.items.map(item => (item.id === id ? res.item! : item)),
       }));
     } catch (error) {
+      console.error(error);
       set({ error: "更新购物项失败" });
     }
   },
   removeItem: async id => {
     try {
       set({ error: null });
-      const res = await ky.delete(`/api/items/${id}`).json<{
+      const res = await api.delete(`/api/items/${id}`).json<{
         success?: boolean;
         error?: string;
       }>();
@@ -115,7 +118,7 @@ export const useGroceryStore = create<GroceryStore>((set, get) => ({
   clearPurchased: async () => {
     try {
       set({ error: null });
-      const res = await ky.post("/api/items/clear").json<{
+      const res = await api.post("/api/items/clear").json<{
         success?: boolean;
         error?: string;
       }>();

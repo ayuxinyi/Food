@@ -22,6 +22,7 @@ const ListScreen = () => {
       keyExtractor={item => item.id}
       renderItem={({ item }) => <PendingItemCard item={item} />}
       contentContainerStyle={{ padding: 20, gap: 14 }}
+      showsVerticalScrollIndicator={false}
       ListHeaderComponent={
         <View style={{ gap: 14 }}>
           <TabScreenBackground />
